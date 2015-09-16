@@ -1,14 +1,11 @@
 package com.barabashkastuff.urldownloader.domain;
 
-import lombok.ToString;
-
 /**
  * Image Class
  *
  * @author a.slepakurov
  * @version 9/16/15
  */
-@ToString
 public class Image {
     private String id;
     private String path;
@@ -39,5 +36,14 @@ public class Image {
 
     public void setRequestId(String requestId) {
         this.requestId = requestId;
+    }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id='" + id + '\'' +
+                ", path='" + path + '\'' +
+                ", requestId='" + requestId + '\'' +
+                '}';
     }
 }

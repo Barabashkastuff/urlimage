@@ -1,14 +1,11 @@
 package com.barabashkastuff.urldownloader.domain;
 
-import lombok.ToString;
-
 /**
  * Request Class
  *
  * @author a.slepakurov
  * @version 9/16/15
  */
-@ToString
 public class Request {
     private String id;
     private String url;
@@ -45,5 +42,14 @@ public class Request {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", status=" + status.getTitle() +
+                '}';
     }
 }
