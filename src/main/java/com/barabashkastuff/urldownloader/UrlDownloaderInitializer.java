@@ -8,8 +8,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
-import com.barabashkastuff.urldownloader.AppConfig;
-
 /**
  * UrlDownloaderInitializer Class
  *

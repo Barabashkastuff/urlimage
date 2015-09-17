@@ -1,4 +1,4 @@
-package com.barabashkastuff.urldownloader.domain;
+package com.barabashkastuff.urldownloader.domain.status;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
  * @author a.slepakurov
  * @version 9/16/15
  */
-public enum Status {
+public enum RequestStatus {
     SUBMITTED("submitted"),
     QUEUE("queue"),
     PROCESSING("processing"),
@@ -17,10 +17,10 @@ public enum Status {
     ERROR("error");
 
     private String title;
-    private static Map<String, Status> statusTypeMap;
+    private static Map<String, RequestStatus> statusTypeMap;
     private static String[] names;
 
-    Status(String title) {
+    RequestStatus(String title) {
         this.title = title;
     }
 
@@ -28,7 +28,7 @@ public enum Status {
         return title;
     }
 
-    public static Status getType(String type) {
+    public static RequestStatus getType(String type) {
         if (statusTypeMap == null) {
             initMapping();
         }
@@ -47,8 +47,8 @@ public enum Status {
     }
 
     private static void initMapping() {
-        statusTypeMap = new HashMap<String, Status>();
-        for (Status value : values()) {
+        statusTypeMap = new HashMap<String, RequestStatus>();
+        for (RequestStatus value : values()) {
             statusTypeMap.put(value.getTitle(), value);
         }
     }

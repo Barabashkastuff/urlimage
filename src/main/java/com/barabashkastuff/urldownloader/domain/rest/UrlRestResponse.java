@@ -1,6 +1,6 @@
 package com.barabashkastuff.urldownloader.domain.rest;
 
-import com.barabashkastuff.urldownloader.domain.Status;
+import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 
 /**
  * UrlRestResponse Class
@@ -11,16 +11,16 @@ import com.barabashkastuff.urldownloader.domain.Status;
 public class UrlRestResponse {
     private String id;
     private String url;
-    private Status status;
+    private RequestStatus requestStatus;
     private String message;
 
     public UrlRestResponse() {
     }
 
-    public UrlRestResponse(String id, String url, Status status, String message) {
+    public UrlRestResponse(String id, String url, RequestStatus requestStatus, String message) {
         this.id = id;
         this.url = url;
-        this.status = status;
+        this.requestStatus = requestStatus;
         this.message = message;
     }
 
@@ -40,12 +40,12 @@ public class UrlRestResponse {
         this.url = url;
     }
 
-    public Status getStatus() {
-        return status;
+    public RequestStatus getRequestStatus() {
+        return requestStatus;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setRequestStatus(RequestStatus requestStatus) {
+        this.requestStatus = requestStatus;
     }
 
     public String getMessage() {

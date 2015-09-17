@@ -1,5 +1,7 @@
 package com.barabashkastuff.urldownloader.domain;
 
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
+
 /**
  * Image Class
  *
@@ -9,6 +11,7 @@ package com.barabashkastuff.urldownloader.domain;
 public class Image {
     private String id;
     private String path;
+    private ImageStatus imageStatus;
     private String requestId;
 
     public Image() {
@@ -30,6 +33,14 @@ public class Image {
         this.path = path;
     }
 
+    public ImageStatus getImageStatus() {
+        return imageStatus;
+    }
+
+    public void setImageStatus(ImageStatus imageStatus) {
+        this.imageStatus = imageStatus;
+    }
+
     public String getRequestId() {
         return requestId;
     }
@@ -44,6 +55,7 @@ public class Image {
                 "id='" + id + '\'' +
                 ", path='" + path + '\'' +
                 ", requestId='" + requestId + '\'' +
+                ", imageStatus=" + imageStatus.getTitle() +
                 '}';
     }
 }
