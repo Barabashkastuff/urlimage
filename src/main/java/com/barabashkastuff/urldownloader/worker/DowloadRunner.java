@@ -3,6 +3,7 @@ package com.barabashkastuff.urldownloader.worker;
 import com.barabashkastuff.urldownloader.dao.IImageDao;
 import com.barabashkastuff.urldownloader.dao.IRequestDao;
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 
 import java.io.File;
@@ -31,21 +32,22 @@ public class DowloadRunner implements Runnable {
 
     @Override
     public void run() {
-        File fileDir = new File("/opt/imgstore/" + image.getRequestId());
+        File fileDir = new File("/tmp/imgstore/" + image.getRequestId());
         if (!fileDir.exists()) {
             fileDir.mkdirs();
         }
         ReadableByteChannel rbc = null;
         FileOutputStream fos = null;
+        imageDao.updateStatus(image.getId(), ImageStatus.DOWNLOADING);
         try {
             URL website = new URL(image.getUrl());
             imageDao.updatePath(image.getId(), image.getSystemPath());
             rbc = Channels.newChannel(website.openStream());
-            fos = new FileOutputStream("/opt/imgstore/" + image.getRequestId() + "/" + image.getId());
+            fos = new FileOutputStream("/tmp/imgstore/" + image.getRequestId() + "/" + image.getId());
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-
+            imageDao.updateStatus(image.getId(), ImageStatus.DOWNLOADED);
         } catch (IOException e) {
-            requestDao.updateStatus(image.getId(), RequestStatus.ERROR);
+            imageDao.updateStatus(image.getId(), ImageStatus.ERROR);
             throw new RuntimeException("Image can\'t be reached!");
         } finally {
             try {

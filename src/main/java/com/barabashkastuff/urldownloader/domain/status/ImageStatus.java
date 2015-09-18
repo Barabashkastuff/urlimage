@@ -12,7 +12,8 @@ import java.util.Map;
 public enum ImageStatus {
     NON_DOWNLOADED("non-downloaded"),
     DOWNLOADING("downloading"),
-    DOWNLOADED("downloaded");
+    DOWNLOADED("downloaded"),
+    ERROR("error");
 
     private String title;
     private static Map<String, ImageStatus> statusTypeMap;

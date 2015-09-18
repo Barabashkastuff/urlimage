@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
  */
 @Service
 public class RequestService implements IRequestService {
-    private static final Logger LOGGER = Logger.getLogger(HtmlRunner.class);
-
     @Autowired
     private IRequestDao serviceDao;
     @Autowired
@@ -36,7 +34,6 @@ public class RequestService implements IRequestService {
         String id = serviceDao.create(request);
         request.setId(id);
         asyncHtmlExecutor.submit(getHtmlRunner(request));
-        LOGGER.info(message.getString(String.format("request.active.count.log", String.valueOf(asyncHtmlExecutor.getActiveCount()))));
         return id;
     }
 

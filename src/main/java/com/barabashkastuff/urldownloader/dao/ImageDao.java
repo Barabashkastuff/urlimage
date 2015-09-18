@@ -43,9 +43,10 @@ public class ImageDao implements IImageDao {
     }
 
     @Override
-    public void updateStatus(String id, ImageStatus requestStatus) {
+    public void updateStatus(String id, ImageStatus imageStatus) {
         Query query = new Query(Criteria.where("id").is(id));
-        mongoOperations.updateFirst(query, Update.update("status", requestStatus), Image.class);
+        mongoOperations.updateFirst(query, Update.update("status", imageStatus), Image.class);
+        LOGGER.info(String.format("Image status update for id=%s, status=%s", id, imageStatus.getTitle()));
     }
 
     @Override

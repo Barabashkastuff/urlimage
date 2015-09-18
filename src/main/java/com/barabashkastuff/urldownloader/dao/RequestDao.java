@@ -45,6 +45,7 @@ public class RequestDao implements IRequestDao {
     public void updateStatus(String id, RequestStatus requestStatus) {
         Query query = new Query(Criteria.where("id").is(id));
         mongoOperations.updateFirst(query, Update.update("status", requestStatus), Request.class);
+        LOGGER.info(String.format("Request status update for id=%s, status=%s", id, requestStatus.getTitle()));
     }
 
     @Override

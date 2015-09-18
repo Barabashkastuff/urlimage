@@ -5,6 +5,7 @@ import com.barabashkastuff.urldownloader.dao.IRequestDao;
 import com.barabashkastuff.urldownloader.domain.Image;
 import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -20,6 +21,8 @@ import java.io.IOException;
  * @version 9/17/15
  */
 public class HtmlRunner implements Runnable {
+    private static final Logger LOGGER = Logger.getLogger(HtmlRunner.class);
+
     private IRequestDao requestDao;
     private IImageDao imageDao;
     private Request request;
@@ -35,7 +38,7 @@ public class HtmlRunner implements Runnable {
     @Override
     public void run() {
         try {
-            Document doc = Jsoup.connect(request.getUrl()).get();
+            Document doc = Jsoup.connect(request.getUrl()).userAgent("Mozilla").get();
             Elements imgElements = doc.getElementsByTag("img");
             if (imgElements.size() == 0) {
                 requestDao.updateStatus(request.getId(), RequestStatus.NO_IMAGE);
@@ -50,6 +53,7 @@ public class HtmlRunner implements Runnable {
                 requestDao.updateStatus(request.getId(), RequestStatus.RESOLVED);
             }
         } catch (IOException e) {
+            LOGGER.error(e.toString());
             requestDao.updateStatus(request.getId(), RequestStatus.ERROR);
             throw new RuntimeException("URL can\'t be reached!");
         }
