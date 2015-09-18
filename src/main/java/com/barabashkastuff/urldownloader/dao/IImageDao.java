@@ -1,6 +1,7 @@
 package com.barabashkastuff.urldownloader.dao;
 
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 
 /**
  * IImageDao Class
@@ -10,5 +11,6 @@ import com.barabashkastuff.urldownloader.domain.Image;
  */
 public interface IImageDao {
     public String create(Image image);
+    public void updateStatus(String id, ImageStatus status);
     public Image get(String id);
 }

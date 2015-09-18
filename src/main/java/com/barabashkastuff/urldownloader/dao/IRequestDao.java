@@ -11,6 +11,6 @@ import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
  */
 public interface IRequestDao {
     public String create(Request request);
-    public Request get(String id);
     public void updateStatus(String id, RequestStatus requestStatus);
+    public Request get(String id);
 }

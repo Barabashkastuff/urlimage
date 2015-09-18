@@ -2,8 +2,6 @@ package com.barabashkastuff.urldownloader;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.jms.connection.CachingConnectionFactory;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
@@ -56,29 +50,6 @@ public class AppConfig implements InitializingBean {
     @Bean
     public MongoOperations mongoOperations() throws UnknownHostException {
         return new MongoTemplate(mongo(), dbScheme);
-    }
-
-    @Bean
-    private ConnectionFactory targetConnectionFactory() {
-        return new ActiveMQConnectionFactory("tcp://localhost:61616");
-    }
-
-    @Bean
-    private ConnectionFactory connectionFactory() {
-        return new CachingConnectionFactory(targetConnectionFactory());
-    }
-
-    @Bean
-    public Destination defaultDestination() {
-        return new ActiveMQQueue("urlRequest");
-    }
-
-    @Bean
-    public JmsTemplate jmsTemplate() {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setConnectionFactory(connectionFactory());
-        jmsTemplate.setDefaultDestination(defaultDestination());
-        return jmsTemplate;
     }
 
     @Bean

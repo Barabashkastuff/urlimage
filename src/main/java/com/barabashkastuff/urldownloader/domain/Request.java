@@ -11,7 +11,7 @@ import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 public class Request {
     private String id;
     private String url;
-    private RequestStatus requestStatus;
+    private RequestStatus status;
 
     public Request() {
     }
@@ -19,7 +19,7 @@ public class Request {
     public Request(String url) {
         this.id = "0";
         this.url = url;
-        this.requestStatus = RequestStatus.SUBMITTED;
+        this.status = RequestStatus.SUBMITTED;
     }
 
     public String getId() {
@@ -38,12 +38,12 @@ public class Request {
         this.url = url;
     }
 
-    public RequestStatus getRequestStatus() {
-        return requestStatus;
+    public RequestStatus getStatus() {
+        return status;
     }
 
-    public void setRequestStatus(RequestStatus requestStatus) {
-        this.requestStatus = requestStatus;
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class Request {
         return "Request{" +
                 "id='" + id + '\'' +
                 ", url='" + url + '\'' +
-                ", requestStatus=" + requestStatus.getTitle() +
+                ", status=" + status.getTitle() +
                 '}';
     }
 }

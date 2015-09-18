@@ -2,6 +2,7 @@ package com.barabashkastuff.urldownloader.service;
 
 import com.barabashkastuff.urldownloader.dao.IImageDao;
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,11 @@ public class ImageService implements IImageService {
     @Override
     public String create(Image image) {
         return imageDao.create(image);
+    }
+
+    @Override
+    public void updateStatus(String id, ImageStatus status) {
+        imageDao.updateStatus(id, status);
     }
 
     @Override

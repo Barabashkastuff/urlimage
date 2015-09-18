@@ -11,7 +11,7 @@ import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 public class Image {
     private String id;
     private String path;
-    private ImageStatus imageStatus;
+    private ImageStatus status;
     private String requestId;
 
     public Image() {
@@ -33,12 +33,12 @@ public class Image {
         this.path = path;
     }
 
-    public ImageStatus getImageStatus() {
-        return imageStatus;
+    public ImageStatus getStatus() {
+        return status;
     }
 
-    public void setImageStatus(ImageStatus imageStatus) {
-        this.imageStatus = imageStatus;
+    public void setStatus(ImageStatus status) {
+        this.status = status;
     }
 
     public String getRequestId() {
@@ -55,7 +55,7 @@ public class Image {
                 "id='" + id + '\'' +
                 ", path='" + path + '\'' +
                 ", requestId='" + requestId + '\'' +
-                ", imageStatus=" + imageStatus.getTitle() +
+                ", status=" + status.getTitle() +
                 '}';
     }
 }

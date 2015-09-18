@@ -42,15 +42,15 @@ public class RequestDao implements IRequestDao {
     }
 
     @Override
-    public Request get(String id) {
-        Query query = new Query(Criteria.where("id").is(id));
-        return mongoOperations.findOne(query, Request.class);
-    }
-
-    @Override
     public void updateStatus(String id, RequestStatus requestStatus) {
         Query query = new Query(Criteria.where("id").is(id));
         mongoOperations.updateFirst(query, Update.update("status", requestStatus), Request.class);
+    }
+
+    @Override
+    public Request get(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        return mongoOperations.findOne(query, Request.class);
     }
 
     private boolean collectionExist() {

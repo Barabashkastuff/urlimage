@@ -6,5 +6,5 @@ package com.barabashkastuff.urldownloader.worker;
  * @author a.slepakurov
  * @version 9/17/15
  */
-public class DowloadRunner {
+public class DowloadRunner{
 }

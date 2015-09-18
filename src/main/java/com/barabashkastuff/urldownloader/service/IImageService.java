@@ -1,6 +1,7 @@
 package com.barabashkastuff.urldownloader.service;
 
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 
 /**
  * IImageService Class
@@ -10,5 +11,6 @@ import com.barabashkastuff.urldownloader.domain.Image;
  */
 public interface IImageService {
     String create(Image image);
+    void updateStatus(String id, ImageStatus status);
     Image get(String id);
 }

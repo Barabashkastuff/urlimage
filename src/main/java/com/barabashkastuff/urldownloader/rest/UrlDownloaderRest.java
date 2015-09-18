@@ -62,9 +62,9 @@ public class UrlDownloaderRest {
             return ResponseEntity
                     .ok(new UrlRestResponse(id, null, RequestStatus.ERROR, messages.getString("no.request.message")));
         }
-        return ResponseEntity.status(request.getRequestStatus().equals(RequestStatus.ERROR) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK)
-                .body(new UrlRestResponse(id, request.getUrl(), request.getRequestStatus(),
-                        messages.getString(String.format("request.status.%s.message", request.getRequestStatus().getTitle()))));
+        return ResponseEntity.status(request.getStatus().equals(RequestStatus.ERROR) ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK)
+                .body(new UrlRestResponse(id, request.getUrl(), request.getStatus(),
+                        messages.getString(String.format("request.status.%s.message", request.getStatus().getTitle()))));
     }
 
 }

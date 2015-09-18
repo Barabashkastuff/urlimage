@@ -1,9 +1,13 @@
 package com.barabashkastuff.urldownloader.dao;
 
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.ResourceBundle;
@@ -37,6 +41,12 @@ public class ImageDao implements IImageDao {
 
         return id;
     }
+
+    @Override
+        public void updateStatus(String id, ImageStatus requestStatus) {
+            Query query = new Query(Criteria.where("id").is(id));
+            mongoOperations.updateFirst(query, Update.update("status", requestStatus), Image.class);
+        }
 
     @Override
     public Image get(String id) {
