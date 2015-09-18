@@ -11,8 +11,9 @@ import java.util.Map;
  */
 public enum RequestStatus {
     SUBMITTED("submitted"),
-    QUEUE("queue"),
     PROCESSING("processing"),
+    NO_IMAGE("noimage"),
+    RESOLVED("resolved"),
     FINISHED("finished"),
     ERROR("error");
 

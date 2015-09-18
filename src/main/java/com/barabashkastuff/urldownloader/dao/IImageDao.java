@@ -12,5 +12,6 @@ import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 public interface IImageDao {
     public String create(Image image);
     public void updateStatus(String id, ImageStatus status);
+    public void updatePath(String id, String path);
     public Image get(String id);
 }

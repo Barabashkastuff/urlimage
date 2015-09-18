@@ -10,11 +10,20 @@ import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
  */
 public class Image {
     private String id;
-    private String path;
+    private String systemPath;
+    private String url;
     private ImageStatus status;
     private String requestId;
 
     public Image() {
+    }
+
+    public Image(String url, String requestId) {
+        this.id = "0";
+        this.systemPath = "";
+        this.status = ImageStatus.NON_DOWNLOADED;
+        this.requestId = requestId;
+        this.url = url;
     }
 
     public String getId() {
@@ -25,12 +34,20 @@ public class Image {
         this.id = id;
     }
 
-    public String getPath() {
-        return path;
+    public String getSystemPath() {
+        return systemPath;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setSystemPath(String systemPath) {
+        this.systemPath = systemPath;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public ImageStatus getStatus() {
@@ -53,7 +70,8 @@ public class Image {
     public String toString() {
         return "Image{" +
                 "id='" + id + '\'' +
-                ", path='" + path + '\'' +
+                ", systemPath='" + systemPath + '\'' +
+                ", url='" + url + '\'' +
                 ", requestId='" + requestId + '\'' +
                 ", status=" + status.getTitle() +
                 '}';

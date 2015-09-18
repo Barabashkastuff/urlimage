@@ -12,6 +12,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.net.UnknownHostException;
@@ -26,18 +27,24 @@ import java.util.ResourceBundle;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.barabashkastuff.urldownloader.*")
-@PropertySource("classpath:/db.properties")
+@PropertySource("classpath:/config.properties")
 public class AppConfig implements InitializingBean {
     private static final Logger LOGGER = Logger.getLogger(AppConfig.class);
     @Autowired
     private Environment environment;
     private String dbHost;
     private String dbScheme;
+    private String poolCore;
+    private String poolMax;
+    private String queueCapacity;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         dbHost = environment.getProperty("db.host");
         dbScheme = environment.getProperty("db.scheme");
+        poolCore = environment.getProperty("pool.core");
+        poolMax = environment.getProperty("pool.max");
+        queueCapacity = environment.getProperty("queue.capacity");
         LOGGER.info(String.format("Database connection (host: %s, scheme:%s)", dbHost, dbScheme));
     }
 
@@ -55,5 +62,14 @@ public class AppConfig implements InitializingBean {
     @Bean
     public ResourceBundle messages() {
         return ResourceBundle.getBundle("messages");
+    }
+
+    @Bean
+    public ThreadPoolTaskExecutor asyncHtmlExecutor() {
+        ThreadPoolTaskExecutor asyncTaskExecutor = new ThreadPoolTaskExecutor();
+        asyncTaskExecutor.setCorePoolSize(Integer.valueOf(poolCore));
+        asyncTaskExecutor.setMaxPoolSize(Integer.valueOf(poolMax));
+        asyncTaskExecutor.setQueueCapacity(Integer.valueOf(queueCapacity));
+        return asyncTaskExecutor;
     }
 }

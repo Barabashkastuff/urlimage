@@ -66,5 +66,4 @@ public class UrlDownloaderRest {
                 .body(new UrlRestResponse(id, request.getUrl(), request.getStatus(),
                         messages.getString(String.format("request.status.%s.message", request.getStatus().getTitle()))));
     }
-
 }
