@@ -49,6 +49,28 @@ public class RequestDao implements IRequestDao {
     }
 
     @Override
+    public void updateImageCount(String id, int imageCount) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.updateFirst(query, Update.update("imageCount", imageCount), Request.class);
+        LOGGER.info(String.format("Request imageCount update for id=%s, status=%s", id, "" + imageCount));
+    }
+
+    @Override
+    public void incrementDownloadCount(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        Request request = mongoOperations.findOne(query, Request.class);
+        mongoOperations.updateFirst(query, Update.update("downloadedCount", request.getDownloadedCount() + 1), Request.class);
+        LOGGER.info(String.format("Request downloadedCount updated for id=%s", id));
+    }
+
+    @Override
+    public boolean allImagesDownloaded(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        Request request = mongoOperations.findOne(query, Request.class);
+        return request.getDownloadedCount() == request.getImageCount();
+    }
+
+    @Override
     public Request get(String id) {
         Query query = new Query(Criteria.where("id").is(id));
         return mongoOperations.findOne(query, Request.class);

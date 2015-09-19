@@ -3,6 +3,7 @@ package com.barabashkastuff.urldownloader.worker;
 import com.barabashkastuff.urldownloader.dao.IImageDao;
 import com.barabashkastuff.urldownloader.dao.IRequestDao;
 import com.barabashkastuff.urldownloader.domain.Image;
+import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 
@@ -23,11 +24,13 @@ public class DowloadRunner implements Runnable {
     private IRequestDao requestDao;
     private IImageDao imageDao;
     private Image image;
+    private Request request;
 
-    public DowloadRunner(IRequestDao requestDao, IImageDao imageDao, Image image) {
+    public DowloadRunner(IRequestDao requestDao, IImageDao imageDao, Image image, Request request) {
         this.requestDao = requestDao;
         this.imageDao = imageDao;
         this.image = image;
+        this.request = request;
     }
 
     @Override
@@ -50,6 +53,10 @@ public class DowloadRunner implements Runnable {
             imageDao.updateStatus(image.getId(), ImageStatus.ERROR);
             throw new RuntimeException("Image can\'t be reached!");
         } finally {
+            requestDao.incrementDownloadCount(request.getId());
+            if (requestDao.allImagesDownloaded(request.getId())) {
+                requestDao.updateStatus(request.getId(), RequestStatus.FINISHED);
+            }
             try {
                 rbc.close();
                 fos.close();

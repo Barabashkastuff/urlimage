@@ -43,6 +43,7 @@ public class HtmlRunner implements Runnable {
             if (imgElements.size() == 0) {
                 requestDao.updateStatus(request.getId(), RequestStatus.NO_IMAGE);
             } else {
+                requestDao.updateImageCount(request.getId(), imgElements.size());
                 for (Element element : imgElements) {
                     String imgUrl = element.attr("src");
                     Image image = new Image(imgUrl, request.getId());
@@ -60,6 +61,6 @@ public class HtmlRunner implements Runnable {
     }
 
     private DowloadRunner getDownloadRunner(Image image) {
-        return new DowloadRunner(requestDao, imageDao, image);
+        return new DowloadRunner(requestDao, imageDao, image, request);
     }
 }

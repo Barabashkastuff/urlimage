@@ -10,7 +10,10 @@ import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
  * @version 9/16/15
  */
 public interface IRequestDao {
-    public String create(Request request);
-    public void updateStatus(String id, RequestStatus requestStatus);
-    public Request get(String id);
+    String create(Request request);
+    void updateStatus(String id, RequestStatus requestStatus);
+    void updateImageCount(String id, int imageCount);
+    void incrementDownloadCount(String id);
+    boolean allImagesDownloaded(String id);
+    Request get(String id);
 }

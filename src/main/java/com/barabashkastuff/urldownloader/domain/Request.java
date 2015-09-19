@@ -12,6 +12,8 @@ public class Request {
     private String id;
     private String url;
     private RequestStatus status;
+    private int imageCount;
+    private int downloadedCount;
 
     public Request() {
     }
@@ -20,6 +22,8 @@ public class Request {
         this.id = "0";
         this.url = url;
         this.status = RequestStatus.SUBMITTED;
+        this.imageCount = 0;
+        this.downloadedCount = 0;
     }
 
     public String getId() {
@@ -46,12 +50,30 @@ public class Request {
         this.status = status;
     }
 
+    public int getImageCount() {
+        return imageCount;
+    }
+
+    public void setImageCount(int imageCount) {
+        this.imageCount = imageCount;
+    }
+
+    public int getDownloadedCount() {
+        return downloadedCount;
+    }
+
+    public void setDownloadedCount(int downloadedCount) {
+        this.downloadedCount = downloadedCount;
+    }
+
     @Override
     public String toString() {
         return "Request{" +
                 "id='" + id + '\'' +
                 ", url='" + url + '\'' +
-                ", status=" + status.getTitle() +
+                ", status=" + status +
+                ", imageCount=" + imageCount +
+                ", downloadedCount=" + downloadedCount +
                 '}';
     }
 }
