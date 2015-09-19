@@ -16,4 +16,5 @@ public interface IRequestDao {
     void incrementDownloadCount(String id);
     boolean allImagesDownloaded(String id);
     Request get(String id);
+    void remove(String id);
 }

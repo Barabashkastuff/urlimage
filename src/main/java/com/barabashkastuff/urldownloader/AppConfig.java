@@ -66,10 +66,10 @@ public class AppConfig implements InitializingBean {
 
     @Bean
     public ThreadPoolTaskExecutor asyncHtmlExecutor() {
-        ThreadPoolTaskExecutor asyncTaskExecutor = new ThreadPoolTaskExecutor();
-        asyncTaskExecutor.setCorePoolSize(Integer.valueOf(poolCore));
-        asyncTaskExecutor.setMaxPoolSize(Integer.valueOf(poolMax));
-        asyncTaskExecutor.setQueueCapacity(Integer.valueOf(queueCapacity));
-        return asyncTaskExecutor;
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        taskExecutor.setCorePoolSize(Integer.valueOf(poolCore));
+        taskExecutor.setMaxPoolSize(Integer.valueOf(poolMax));
+        taskExecutor.setQueueCapacity(Integer.valueOf(queueCapacity));
+        return taskExecutor;
     }
 }

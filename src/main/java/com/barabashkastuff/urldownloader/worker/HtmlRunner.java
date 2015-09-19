@@ -46,7 +46,9 @@ public class HtmlRunner implements Runnable {
                 requestDao.updateImageCount(request.getId(), imgElements.size());
                 for (Element element : imgElements) {
                     String imgUrl = element.attr("src");
-                    Image image = new Image(imgUrl, request.getId());
+                    String width = element.attr("width");
+                    String heigth = element.attr("heigth");
+                    Image image = new Image(imgUrl, request.getId(), width, heigth);
                     String id = imageDao.create(image);
                     image.setId(id);
                     asyncHtmlExecutor.submit(getDownloadRunner(image));

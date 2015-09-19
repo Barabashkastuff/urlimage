@@ -5,9 +5,7 @@ import com.barabashkastuff.urldownloader.dao.IRequestDao;
 import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 import com.barabashkastuff.urldownloader.worker.HtmlRunner;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +20,7 @@ import java.util.ResourceBundle;
 @Service
 public class RequestService implements IRequestService {
     @Autowired
-    private IRequestDao serviceDao;
+    private IRequestDao requestDao;
     @Autowired
     private IImageDao imageDao;
     @Autowired
@@ -31,7 +29,7 @@ public class RequestService implements IRequestService {
     private ResourceBundle message;
 
     public String create(Request request) {
-        String id = serviceDao.create(request);
+        String id = requestDao.create(request);
         request.setId(id);
         asyncHtmlExecutor.submit(getHtmlRunner(request));
         return id;
@@ -39,14 +37,20 @@ public class RequestService implements IRequestService {
 
     @Override
     public void updateStatus(String id, RequestStatus requestStatus) {
-        serviceDao.updateStatus(id, requestStatus);
+        requestDao.updateStatus(id, requestStatus);
     }
 
     public Request get(String id) {
-        return serviceDao.get(id);
+        return requestDao.get(id);
+    }
+
+    @Override
+    public int remove(String id) {
+        requestDao.remove(id);
+        return imageDao.removeByRequestId(id);
     }
 
     private HtmlRunner getHtmlRunner(Request request) {
-        return new HtmlRunner(serviceDao, imageDao, request, asyncHtmlExecutor);
+        return new HtmlRunner(requestDao, imageDao, request, asyncHtmlExecutor);
     }
 }

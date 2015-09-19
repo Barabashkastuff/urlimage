@@ -66,4 +66,10 @@ public class UrlDownloaderRest {
                 .body(new UrlRestResponse(id, request.getUrl(), request.getStatus(),
                         messages.getString(String.format("request.status.%s.message", request.getStatus().getTitle()))));
     }
+
+    @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> remove(@PathVariable("id") String id) {
+        int removed = requestService.remove(id);
+        return ResponseEntity.ok(String.format(messages.getString("request.deleted.message"), id, ""+removed));
+    }
 }

@@ -13,4 +13,5 @@ public interface IRequestService {
     String create(Request request);
     void updateStatus(String id, RequestStatus requestStatus);
     Request get(String id);
+    int remove(String id);
 }

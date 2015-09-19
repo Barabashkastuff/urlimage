@@ -24,6 +24,8 @@ public class RequestDao implements IRequestDao {
     private static final Logger LOGGER = Logger.getLogger(RequestDao.class);
 
     @Autowired
+    private IImageDao imageDao;
+    @Autowired
     private MongoOperations mongoOperations;
     @Autowired
     private ResourceBundle messages;
@@ -56,7 +58,7 @@ public class RequestDao implements IRequestDao {
     }
 
     @Override
-    public void incrementDownloadCount(String id) {
+    public synchronized void incrementDownloadCount(String id) {
         Query query = new Query(Criteria.where("id").is(id));
         Request request = mongoOperations.findOne(query, Request.class);
         mongoOperations.updateFirst(query, Update.update("downloadedCount", request.getDownloadedCount() + 1), Request.class);
@@ -64,7 +66,7 @@ public class RequestDao implements IRequestDao {
     }
 
     @Override
-    public boolean allImagesDownloaded(String id) {
+    public synchronized boolean allImagesDownloaded(String id) {
         Query query = new Query(Criteria.where("id").is(id));
         Request request = mongoOperations.findOne(query, Request.class);
         return request.getDownloadedCount() == request.getImageCount();
@@ -74,6 +76,12 @@ public class RequestDao implements IRequestDao {
     public Request get(String id) {
         Query query = new Query(Criteria.where("id").is(id));
         return mongoOperations.findOne(query, Request.class);
+    }
+
+    @Override
+    public void remove(String id) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.remove(query, Request.class);
     }
 
     private boolean collectionExist() {

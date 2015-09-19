@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -56,8 +57,39 @@ public class ImageDao implements IImageDao {
     }
 
     @Override
+    public void updateSize(String id, String size) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.updateFirst(query, Update.update("size", size), Image.class);
+    }
+
+    @Override
+    public void updateWidth(String id, String width) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.updateFirst(query, Update.update("width", width), Image.class);
+    }
+
+    @Override
+    public void updateHeigth(String id, String heigth) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.updateFirst(query, Update.update("heigth", heigth), Image.class);
+    }
+
+    @Override
+    public void updateContentType(String id, String contentType) {
+        Query query = new Query(Criteria.where("id").is(id));
+        mongoOperations.updateFirst(query, Update.update("contentType", contentType), Image.class);
+    }
+
+    @Override
     public Image get(String id) {
         return null;
+    }
+
+    @Override
+    public int removeByRequestId(String requestId) {
+        Query query = new Query(Criteria.where("requestId").is(requestId));
+        List<Image> imageList = mongoOperations.findAllAndRemove(query, Image.class);
+        return imageList.size();
     }
 
     private boolean collectionExist() {
