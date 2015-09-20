@@ -1,5 +1,6 @@
 package com.barabashkastuff.urldownloader.rest;
 
+import com.barabashkastuff.urldownloader.domain.Image;
 import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 import com.barabashkastuff.urldownloader.domain.rest.UrlRestRequest;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.GET;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -70,6 +73,11 @@ public class UrlDownloaderRest {
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<String> remove(@PathVariable("id") String id) {
         int removed = requestService.remove(id);
-        return ResponseEntity.ok(String.format(messages.getString("request.deleted.message"), id, ""+removed));
+        return ResponseEntity.ok(String.format(messages.getString("request.deleted.message"), id, "" + removed));
+    }
+
+    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Image>> getImages(@PathVariable("id") String id) {
+        return ResponseEntity.ok(requestService.getImages(id));
     }
 }

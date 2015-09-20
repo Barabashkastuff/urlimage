@@ -81,8 +81,9 @@ public class ImageDao implements IImageDao {
     }
 
     @Override
-    public Image get(String id) {
-        return null;
+    public List<Image> getByRequestId(String requestId) {
+        Query query = new Query(Criteria.where("requestId").is(requestId));
+        return mongoOperations.find(query, Image.class);
     }
 
     @Override

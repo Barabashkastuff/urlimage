@@ -3,6 +3,8 @@ package com.barabashkastuff.urldownloader.dao;
 import com.barabashkastuff.urldownloader.domain.Image;
 import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 
+import java.util.List;
+
 /**
  * IImageDao Class
  *
@@ -17,6 +19,6 @@ public interface IImageDao {
     public void updateWidth(String id, String width);
     public void updateHeigth(String id, String heigth);
     public void updateContentType(String id, String contentType);
-    public Image get(String id);
+    public List<Image> getByRequestId(String requestId);
     public int removeByRequestId(String requestId);
 }

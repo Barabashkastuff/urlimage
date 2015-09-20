@@ -2,6 +2,7 @@ package com.barabashkastuff.urldownloader.service;
 
 import com.barabashkastuff.urldownloader.dao.IImageDao;
 import com.barabashkastuff.urldownloader.dao.IRequestDao;
+import com.barabashkastuff.urldownloader.domain.Image;
 import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 import com.barabashkastuff.urldownloader.worker.HtmlRunner;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -38,8 +41,13 @@ public class RequestService implements IRequestService {
         requestDao.updateStatus(id, requestStatus);
     }
 
+    @Override
     public Request get(String id) {
         return requestDao.get(id);
+    }
+
+    public List<Image> getImages(String id) {
+        return requestDao.allImagesDownloaded(id) ? imageDao.getByRequestId(id) : Collections.<Image>emptyList();
     }
 
     @Override
