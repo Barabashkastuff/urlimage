@@ -7,7 +7,6 @@ import com.barabashkastuff.urldownloader.domain.Request;
 import com.barabashkastuff.urldownloader.domain.status.ImageStatus;
 import com.barabashkastuff.urldownloader.domain.status.RequestStatus;
 import org.apache.commons.io.FileUtils;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 
 import javax.imageio.ImageIO;
@@ -19,7 +18,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
-import java.nio.file.Files;
 
 /**
  * DowloadRunner Class
@@ -61,8 +59,8 @@ public class DowloadRunner implements Runnable {
             long fileSize = FileUtils.sizeOf(imageFile);
             imageDao.updateSize(image.getId(), fileSize + "");
             BufferedImage bufferedImage = ImageIO.read(imageFile);
-            if (!StringUtils.hasText(image.getHeigth())) {
-                imageDao.updateHeigth(image.getId(), bufferedImage.getHeight() + "");
+            if (!StringUtils.hasText(image.getHeight())) {
+                imageDao.updateHeight(image.getId(), bufferedImage.getHeight() + "");
             }
             if (!StringUtils.hasText(image.getWidth())) {
                 imageDao.updateWidth(image.getId(), bufferedImage.getWidth() + "");

@@ -13,7 +13,7 @@ public class Image {
     private String systemPath;
     private String url;
     private String width;
-    private String heigth;
+    private String height;
     private String size;
     private String contentType;
     private ImageStatus status;
@@ -22,7 +22,7 @@ public class Image {
     public Image() {
     }
 
-    public Image(String url, String requestId, String width, String heigth) {
+    public Image(String url, String requestId, String width, String height) {
         this.id = "0";
         this.systemPath = "";
         this.status = ImageStatus.NON_DOWNLOADED;
@@ -30,7 +30,7 @@ public class Image {
         this.contentType = "";
         this.url = url;
         this.width = width;
-        this.heigth = heigth;
+        this.height = height;
     }
 
     public String getId() {
@@ -65,12 +65,12 @@ public class Image {
         this.width = width;
     }
 
-    public String getHeigth() {
-        return heigth;
+    public String getHeight() {
+        return height;
     }
 
-    public void setHeigth(String heigth) {
-        this.heigth = heigth;
+    public void setHeight(String height) {
+        this.height = height;
     }
 
     public String getSize() {
@@ -112,7 +112,7 @@ public class Image {
                 ", systemPath='" + systemPath + '\'' +
                 ", url='" + url + '\'' +
                 ", width='" + width + '\'' +
-                ", heigth='" + heigth + '\'' +
+                ", height='" + height + '\'' +
                 ", size='" + size + '\'' +
                 ", contentType='" + contentType + '\'' +
                 ", status=" + status +

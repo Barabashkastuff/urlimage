@@ -69,9 +69,9 @@ public class ImageDao implements IImageDao {
     }
 
     @Override
-    public void updateHeigth(String id, String heigth) {
+    public void updateHeight(String id, String height) {
         Query query = new Query(Criteria.where("id").is(id));
-        mongoOperations.updateFirst(query, Update.update("heigth", heigth), Image.class);
+        mongoOperations.updateFirst(query, Update.update("height", height), Image.class);
     }
 
     @Override
