@@ -48,7 +48,6 @@ public class DowloadRunner implements Runnable {
         }
         ReadableByteChannel rbc = null;
         FileOutputStream fos = null;
-        URLConnection connection = null;
         imageDao.updateStatus(image.getId(), ImageStatus.DOWNLOADING);
         try {
             URL website = new URL(image.getUrl());
@@ -68,7 +67,7 @@ public class DowloadRunner implements Runnable {
             if (!StringUtils.hasText(image.getWidth())) {
                 imageDao.updateWidth(image.getId(), bufferedImage.getWidth() + "");
             }
-            connection = website.openConnection();
+            URLConnection connection = website.openConnection();
             String contentType = connection.getContentType();
             imageDao.updateContentType(request.getId(), contentType);
         } catch (IOException e) {

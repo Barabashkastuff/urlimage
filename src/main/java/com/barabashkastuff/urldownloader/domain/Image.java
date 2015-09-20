@@ -27,6 +27,7 @@ public class Image {
         this.systemPath = "";
         this.status = ImageStatus.NON_DOWNLOADED;
         this.requestId = requestId;
+        this.contentType = "";
         this.url = url;
         this.width = width;
         this.heigth = heigth;

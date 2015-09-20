@@ -25,8 +25,6 @@ public class RequestService implements IRequestService {
     private IImageDao imageDao;
     @Autowired
     private ThreadPoolTaskExecutor asyncHtmlExecutor;
-    @Autowired
-    private ResourceBundle message;
 
     public String create(Request request) {
         String id = requestDao.create(request);
